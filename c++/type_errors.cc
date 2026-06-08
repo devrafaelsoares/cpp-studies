@@ -1,39 +1,54 @@
+/**
+ * @file type_errors.cc
+ * @brief Armadilhas comuns ao trabalhar com tipos de dados em C++.
+ * 
+ * Demonstra conceitos de 'Overflow' de memória, perda de precisão, 
+ * e truncamento implícito de valores.
+ */
+
 #include <iostream>
 using namespace std;
 
 int main() {
-    cout << "--- 1. O Problema do Tamanho (Overflow) ---" << endl;
+    // ---------------------------------------------------------
+    // 1. DATA OVERFLOW (Estouro de Limite)
+    // ---------------------------------------------------------
+    // Quando um valor ultrapassa o limite máximo do seu tipo de dado, 
+    // ele "dá a volta" devido a forma como os limites binários operam.
+    cout << "--- 1. Limites de Tamanho (Overflow) ---" << endl;
+    short valid_short = 32000;
+    short overflowed_short = 32768; // Ultrapassa o limite padrão de 32.767
     
-    // O tipo 'short' (2 bytes) tem um limite maximo de 32767
-    short numero_certo = 32000;
-    short numero_errado = 32768; // Passou 1 do limite!
-    
-    cout << "Valor esperado (32000): " << numero_certo << endl;
-    cout << "Valor estourado (32768): " << numero_errado << " <- (Deu a volta e virou negativo!)" << endl;
+    cout << "Valor esperado (32000): " << valid_short << endl;
+    cout << "Valor estourado (32768): " << overflowed_short << " <- (Deu a volta para o negativo)" << endl;
 
-
-    cout << "\n--- 2. O Problema da Precisao (Ponto Flutuante) ---" << endl;
+    // ---------------------------------------------------------
+    // 2. PERDA DE PRECISÃO
+    // ---------------------------------------------------------
+    // O tipo 'float' sacrifica a precisão matemática em favor da eficiência 
+    // de memória quando comparado ao 'double'.
+    cout << "\n--- 2. Precisao Decimal (Ponto Flutuante) ---" << endl;
+    float low_precision_float = 123456789.12345f; // 4 bytes
+    double high_precision_double = 123456789.12345; // 8 bytes
     
-    // Queremos salvar o numero exato 123456789.12345
-    float float_errado = 123456789.12345f; // float tem 4 bytes
-    double double_certo = 123456789.12345; // double tem 8 bytes
-    
-    // Configura o 'cout' para mostrar mais casas decimais e nao usar notacao cientifica
+    // Formatando a saída do terminal para fins de demonstração
     cout.precision(14);
     cout << fixed;      
     
-    cout << "Salvando em um Float : " << float_errado << " <- (Perdeu precisao!)" << endl;
-    cout << "Salvando em um Double: " << double_certo << " <- (Manteve os dados exatos)" << endl;
+    cout << "Salvo em Float : " << low_precision_float << " <- (Precisao foi perdida!)" << endl;
+    cout << "Salvo em Double: " << high_precision_double << " <- (Mantem os dados exatos)" << endl;
 
-
-    cout << "\n--- 3. Erro Silencioso de Tipos ---" << endl;
+    // ---------------------------------------------------------
+    // 3. TRUNCAMENTO SILENCIOSO
+    // ---------------------------------------------------------
+    // Atribuir um valor de ponto flutuante (decimal) para uma variável inteira 
+    // resulta no descarte total e silencioso da parte fracionária.
+    cout << "\n--- 3. Truncamento de Tipos ---" << endl;
+    int valid_integer = 10;
+    int truncated_integer = 10.99; // Compila perfeitamente, mas a fração some
     
-    // O que acontece se colocar um numero quebrado dentro de uma variavel que so aceita inteiros?
-    int inteiro_certo = 10;
-    int inteiro_errado = 10.99; // C++ permite, mas "corta" os decimais!
-    
-    cout << "Int certo (10)    : " << inteiro_certo << endl;
-    cout << "Int errado (10.99): " << inteiro_errado << " <- (A parte decimal inteira foi ignorada!)" << endl;
+    cout << "Int valido (10)   : " << valid_integer << endl;
+    cout << "Truncado (10.99)  : " << truncated_integer << " <- (Decimais foram completamente ignorados!)" << endl;
 
     return 0;
 }

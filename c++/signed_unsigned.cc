@@ -1,30 +1,42 @@
+/**
+ * @file signed_unsigned.cc
+ * @brief Compreendendo a diferença entre inteiros 'signed' e 'unsigned'.
+ * 
+ * Explica como sacrificar a habilidade de representar números negativos 
+ * dobra o limite máximo positivo de um dado, e os riscos envolvidos nisso.
+ */
+
 #include <iostream>
 using namespace std;
 
 int main() {
-    cout << "--- 1. A Vantagem do Unsigned (Sem Sinal) ---" << endl;
+    // ---------------------------------------------------------
+    // 1. A VANTAGEM DO UNSIGNED
+    // ---------------------------------------------------------
+    // Um 'short' padrão (signed por definição) dedica 1 bit ao sinal (+/-).
+    // Seu limite máximo positivo cai pela metade (geralmente 32.767).
+    short signed_limit = 32767;
     
-    // Um 'short' normal (signed short) gasta 1 bit para guardar o sinal (+ ou -).
-    // O seu limite maximo positivo e 32.767
-    short signed_short = 32767;
+    // Um 'unsigned short' reaproveita esse bit de sinal, dobrando efetivamente
+    // a sua capacidade máxima para 65.535.
+    unsigned short unsigned_capacity = 60000; 
+
+    cout << "--- 1. A Vantagem do Unsigned ---" << endl;
+    cout << "Limite do Signed Short:   " << signed_limit << endl;
+    cout << "Unsigned Short suporta: " << unsigned_capacity << endl;
+
+    // ---------------------------------------------------------
+    // 2. O PERIGO DO UNSIGNED
+    // ---------------------------------------------------------
+    // Atribuir um número negativo a uma variável unsigned força um "underflow" binário, 
+    // fazendo o valor girar e assumir o maior número positivo possível daquele tipo.
+    cout << "\n--- 2. O Perigo do Unsigned ---" << endl;
     
-    // O 'unsigned short' recusa numeros negativos. Em troca, ele usa esse bit extra 
-    // para dobrar o limite positivo, indo ate 65.535!
-    unsigned short unsigned_short_maior = 60000; 
+    int valid_debt = -50; 
+    unsigned int invalid_debt = -50; // Erro crítico preste a acontecer
 
-    cout << "Limite do Short normal (com sinal): " << signed_short << endl;
-    cout << "Short Unsigned consegue passar disso: " << unsigned_short_maior << endl;
-
-
-    cout << "\n--- 2. O Perigo de Usar Unsigned do Jeito Errado ---" << endl;
-    
-    // O que acontece se voce tentar guardar uma divida ou temperatura negativa 
-    // em uma variavel que NAO aceita sinais negativos?
-    int divida_com_sinal = -50; // Funciona perfeitamente
-    unsigned int divida_sem_sinal = -50; // Cuidado!
-
-    cout << "Divida em variavel normal (int)  : " << divida_com_sinal << endl;
-    cout << "Divida em variavel unsigned int  : " << divida_sem_sinal << " <- (Deu a volta para o MAIOR numero possivel!)" << endl;
+    cout << "Divida em um 'int' comum   : " << valid_debt << endl;
+    cout << "Divida em um 'unsigned int': " << invalid_debt << " <- (Girou para o maior limite possivel!)" << endl;
 
     return 0;
 }
