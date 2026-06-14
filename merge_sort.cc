@@ -1,10 +1,11 @@
 /**
  * @file merge_sort.cc
  * @brief Implementação do algoritmo de ordenação Merge Sort em C++.
- * 
+ *
  * O Merge Sort é um algoritmo eficiente de ordenação baseado na estratégia
- * de "divisão e conquista" (divide and conquer), possuindo complexidade de 
- * tempo garantida de O(n log n) em todos os cenários (pior, médio e melhor caso).
+ * de "divisão e conquista" (divide and conquer), possuindo complexidade de
+ * tempo garantida de O(n log n) em todos os cenários (pior, médio e melhor
+ * caso).
  */
 #include <iostream>
 #include <vector>
@@ -13,11 +14,11 @@ using namespace std;
 
 /**
  * @brief Mescla dois sub-arrays ordenados em um único array ordenado.
- * 
- * Esta função é o núcleo do algoritmo Merge Sort. Ela recebe um array e os índices
- * que delimitam dois sub-arrays adjacentes (que já devem estar ordenados). A função 
- * então os copia para arrays temporários e os mescla de volta no array original 
- * mantendo a ordenação.
+ *
+ * Esta função é o núcleo do algoritmo Merge Sort. Ela recebe um array e os
+ * índices que delimitam dois sub-arrays adjacentes (que já devem estar
+ * ordenados). A função então os copia para arrays temporários e os mescla de
+ * volta no array original mantendo a ordenação.
  *
  * @param arr Referência para o array (vector) que contém os elementos.
  * @param left Índice inicial do primeiro sub-array.
@@ -66,10 +67,10 @@ void merge(vector<int> &arr, int left, int mid, int right) {
 
 /**
  * @brief Ordena um array utilizando o algoritmo recursivo Merge Sort.
- * 
- * A função divide o array recursivamente pela metade até que cada sub-array contenha 
- * no máximo um elemento. Em seguida, as metades são recombinadas e ordenadas usando 
- * a função auxiliar 'merge'.
+ *
+ * A função divide o array recursivamente pela metade até que cada sub-array
+ * contenha no máximo um elemento. Em seguida, as metades são recombinadas e
+ * ordenadas usando a função auxiliar 'merge'.
  *
  * @param arr Referência para o array (vector) a ser ordenado.
  * @param left Índice inicial da porção do array a ser processada.
