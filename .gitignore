@@ -40,6 +40,15 @@ type_sizes
 type_errors
 signed_unsigned
 binary_tree
+constants
+constexpr_vs_const
+hello_word
+in_out
+operators
+tree_allocations
+dynamic_arrays
+two_pointers
+random
 
 # OS generated files
 .DS_Store
