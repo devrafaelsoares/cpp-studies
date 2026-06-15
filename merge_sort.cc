@@ -7,7 +7,7 @@
  * tempo garantida de O(n log n) em todos os cenários (pior, médio e melhor
  * caso).
  */
-#include <iostream>
+#include "utils.hpp"
 #include <vector>
 
 using namespace std;
@@ -90,19 +90,16 @@ void mergeSort(vector<int> &arr, int left, int right) {
 
 int main() {
 
-  vector<int> arr = {25, 84, 10, 62, 5, 88, 10};
+  vector<int> arr = random_numbers(100);
   int arr_size = arr.size();
   int left = 0;
   int right = arr_size - 1;
 
+  vector_print(arr, "\n=====> Vetor Não Ordenado <=====\n");
+
   mergeSort(arr, left, right);
 
-  for (int i = 0; i < arr_size; i++) {
-    if (i == 0)
-      cout << "| ";
-    cout << arr[i] << " | ";
-  }
-  cout << endl;
+  vector_print(arr, "\n=====> Vetor Ordenado <=====\n");
 
   return 0;
 }
