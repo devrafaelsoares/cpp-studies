@@ -9,12 +9,12 @@
                 "-fdiagnostics-color=always",
                 "-g",
                 "-O0",
-                "${file}",
+                "${workspaceFolder}/merge_sort.cc",
                 "-o",
-                "${fileDirname}/${fileBasenameNoExtension}"
+                "${workspaceFolder}/merge_sort"
             ],
             "options": {
-                "cwd": "${fileDirname}"
+                "cwd": "${workspaceFolder}"
             },
             "problemMatcher": [
                 "$gcc"
