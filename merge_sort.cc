@@ -90,7 +90,7 @@ void mergeSort(vector<int> &arr, int left, int right) {
 
 int main() {
 
-  vector<int> arr = random_numbers(100);
+  vector<int> arr = random_numbers(9);
   int arr_size = arr.size();
   int left = 0;
   int right = arr_size - 1;
