@@ -20,16 +20,24 @@ using namespace std;
  *
  * @param arr Referência para o array (vector) a ser ordenado.
  */
-void bubbleSort(vector<int> &arr) {
+
+ /**
+  * Versão otimizada. Nessa versão utilizando uma variável de controle 'swapped'
+  * Ela verifica se houver alguma trocar na última iteração.
+ */
+void bubbleSortOtimized(vector<int> &arr) {
   int n = arr.size();
   bool swapped;
+  int temp;
 
   for (int i = 0; i < n - 1; i++) {
     swapped = false;
 
     for (int j = 0; j < n - i - 1; j++) {
       if (arr[j] > arr[j + 1]) {
-        swap(arr[j], arr[j + 1]);
+        temp = arr[j];
+        arr[j] = arr[j + 1];
+        arr[j + 1] = temp;
         swapped = true;
       }
     }
@@ -39,12 +47,31 @@ void bubbleSort(vector<int> &arr) {
   }
 }
 
+/**
+ * Versão tradicional do bubbleSort.
+*/
+void bubbleSort(vector<int> &arr) {
+  int n = arr.size();
+  int temp;
+
+  for (int i = 0; i < n - 1; i++) {
+
+    for (int j = 0; j < n - i - 1; j++) {
+      if (arr[j] > arr[j + 1]) {
+        temp = arr[j];
+        arr[j] = arr[j + 1];
+        arr[j + 1] = temp;
+      }
+    }    
+  }
+}
+
 int main() {
-  vector<int> arr = random_numbers(10);
+  vector<int> arr = random_numbers(3);
 
   vector_print(arr, "\n=====> Vetor Não Ordenado <=====");
 
-  bubbleSort(arr);
+  bubbleSortOtimized(arr);
 
   vector_print(arr, "\n=====> Vetor Ordenado <=====");
 
