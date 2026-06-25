@@ -52,34 +52,33 @@
  *      / \     =>       /  \
  *    10    3           4    3
  */
-void heapify(vector<int> &arr, int n, int i)
-{
-    // Assume que o nó atual (i) é o maior
-    int largest = i;
+void heapify(vector<int> &arr, int n, int i) {
+  // Assume que o nó atual (i) é o maior
+  int largest = i;
 
-    // Calcula os índices dos filhos na representação de array
-    int left = 2 * i + 1;   // Filho esquerdo
-    int right = 2 * i + 2;  // Filho direito
+  // Calcula os índices dos filhos na representação de array
+  int left = 2 * i + 1;  // Filho esquerdo
+  int right = 2 * i + 2; // Filho direito
 
-    // Se o filho esquerdo existe e é maior que o nó atual, atualiza o maior
-    if (left < n && arr[left] > arr[largest]) {
-        largest = left;
-    }
+  // Se o filho esquerdo existe e é maior que o nó atual, atualiza o maior
+  if (left < n && arr[left] > arr[largest]) {
+    largest = left;
+  }
 
-    // Se o filho direito existe e é maior que o atual maior, atualiza
-    if (right < n && arr[right] > arr[largest]) {
-        largest = right;
-    }
+  // Se o filho direito existe e é maior que o atual maior, atualiza
+  if (right < n && arr[right] > arr[largest]) {
+    largest = right;
+  }
 
-    // Se o maior não é o nó atual, troca e aplica heapify recursivamente
-    // na sub-árvore afetada para manter a propriedade de heap
-    if (largest != i) {
-        swap(arr[i], arr[largest]);
+  // Se o maior não é o nó atual, troca e aplica heapify recursivamente
+  // na sub-árvore afetada para manter a propriedade de heap
+  if (largest != i) {
+    swap(arr[i], arr[largest]);
 
-        // Chamada recursiva: o elemento trocado pode violar o heap
-        // na sub-árvore do filho, então corrige em cascata
-        heapify(arr, n, largest);
-    }
+    // Chamada recursiva: o elemento trocado pode violar o heap
+    // na sub-árvore do filho, então corrige em cascata
+    heapify(arr, n, largest);
+  }
 }
 
 /**
@@ -102,48 +101,46 @@ void heapify(vector<int> &arr, int n, int i)
  *
  * Passo a passo com [4, 10, 3, 5, 1]:
  *   Build:    [4,10,3,5,1] -> [10,5,3,4,1]  (Max-Heap)
- *   Extract:  [10,5,3,4,1] -> swap(10,1) -> [1,5,3,4,|10] -> heapify -> [5,4,3,1,|10]
- *             [5,4,3,1]    -> swap(5,1)  -> [1,4,3,|5,10]  -> heapify -> [4,1,3,|5,10]
+ *   Extract:  [10,5,3,4,1] -> swap(10,1) -> [1,5,3,4,|10] -> heapify ->
+ * [5,4,3,1,|10] [5,4,3,1]    -> swap(5,1)  -> [1,4,3,|5,10]  -> heapify ->
+ * [4,1,3,|5,10]
  *             ...continua até estar totalmente ordenado: [1,3,4,5,10]
  */
-void heap_sort(vector<int> &arr)
-{
-   int n = arr.size();
+void heap_sort(vector<int> &arr) {
+  int n = arr.size();
 
-    // ──────────────────────────────────────────────────────
-    // Fase 1: Construção do Max-Heap (bottom-up)
-    // Começa no último nó que possui filhos (n/2 - 1)
-    // e sobe até a raiz, garantindo a propriedade de heap
-    // ──────────────────────────────────────────────────────
-    for (int i = n / 2 - 1; i >= 0; i--)
-        heapify(arr, n, i);
+  // ──────────────────────────────────────────────────────
+  // Fase 1: Construção do Max-Heap (bottom-up)
+  // Começa no último nó que possui filhos (n/2 - 1)
+  // e sobe até a raiz, garantindo a propriedade de heap
+  // ──────────────────────────────────────────────────────
+  for (int i = n / 2 - 1; i >= 0; i--)
+    heapify(arr, n, i);
 
-    // ──────────────────────────────────────────────────────
-    // Fase 2: Extração ordenada
-    // A cada iteração:
-    //   1. Troca a raiz (maior) com o último elemento do heap
-    //   2. Reduz o tamanho lógico do heap (i--)
-    //   3. Restaura o Max-Heap na raiz com heapify
-    // ──────────────────────────────────────────────────────
-    for (int i = n - 1; i > 0; i--) {
-        // Move o maior elemento (raiz) para a posição final correta
-        swap(arr[0], arr[i]);
+  // ──────────────────────────────────────────────────────
+  // Fase 2: Extração ordenada
+  // A cada iteração:
+  //   1. Troca a raiz (maior) com o último elemento do heap
+  //   2. Reduz o tamanho lógico do heap (i--)
+  //   3. Restaura o Max-Heap na raiz com heapify
+  // ──────────────────────────────────────────────────────
+  for (int i = n - 1; i > 0; i--) {
+    // Move o maior elemento (raiz) para a posição final correta
+    swap(arr[0], arr[i]);
 
-        // Restaura a propriedade de heap no sub-array reduzido [0..i-1]
-        heapify(arr, i, 0);
-    }
+    // Restaura a propriedade de heap no sub-array reduzido [0..i-1]
+    heapify(arr, i, 0);
+  }
 };
 
+int main() {
+  vector<int> arr = random_numbers(10);
 
-int main()
-{
-    vector<int> arr = random_numbers(10);
+  vector_print(arr, "\n=====> Vetor Não Ordenado <=====");
 
-    vector_print(arr, "\n=====> Vetor Não Ordenado <=====");
+  heap_sort(arr);
 
-    heap_sort(arr);
+  vector_print(arr, "\n=====> Vetor Ordenado <=====");
 
-    vector_print(arr, "\n=====> Vetor Ordenado <=====");
-
-    return 0;
+  return 0;
 };

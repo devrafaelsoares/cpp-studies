@@ -21,9 +21,9 @@ using namespace std;
  * @param arr Referência para o array (vector) a ser ordenado.
  */
 
- /**
-  * Versão otimizada. Nessa versão utilizando uma variável de controle 'swapped'
-  * Ela verifica se houver alguma trocar na última iteração.
+/**
+ * Versão otimizada. Nessa versão utilizando uma variável de controle 'swapped'
+ * Ela verifica se houver alguma trocar na última iteração.
  */
 void bubbleSortOtimized(vector<int> &arr) {
   int n = arr.size();
@@ -48,8 +48,14 @@ void bubbleSortOtimized(vector<int> &arr) {
 }
 
 /**
- * Versão tradicional do bubbleSort.
-*/
+ * @brief Ordena um array utilizando o algoritmo Bubble Sort tradicional.
+ *
+ * Percorre o array repetidamente, comparando pares adjacentes e
+ * trocando-os se estiverem fora de ordem. Continua até que nenhuma
+ * troca seja necessária em uma passagem completa.
+ *
+ * @param arr Referência para o array (vector) a ser ordenado.
+ */
 void bubbleSort(vector<int> &arr) {
   int n = arr.size();
   int temp;
@@ -62,7 +68,7 @@ void bubbleSort(vector<int> &arr) {
         arr[j] = arr[j + 1];
         arr[j + 1] = temp;
       }
-    }    
+    }
   }
 }
 
