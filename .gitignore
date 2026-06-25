@@ -62,3 +62,4 @@ merge_sort
 bubble_sort
 heap_sort
 max-heap
+insertion_sort
